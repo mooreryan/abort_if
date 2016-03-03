@@ -6,9 +6,23 @@ describe AbortIf do
   let(:hash) { { a: 1, b: 2 } }
   let(:true_test) { hash.has_key? :a }
   let(:false_test) { hash.has_key? :c }
+  let(:file) { "#{File.dirname(__FILE__)}/test_files/hello.txt" }
+  @msg = "Fatal error"
 
   it 'has a version number' do
     expect(AbortIf::VERSION).not_to be nil
+  end
+
+  shared_examples "for logging a fatal error" do |method, test|
+    it "logs a fatal error" do
+      expect(klass.logger).to receive(:fatal)
+
+      begin
+        klass.send(method, test)
+      rescue SystemExit
+        # pass
+      end
+    end
   end
 
   describe "#abort_if" do
@@ -21,13 +35,23 @@ describe AbortIf do
       expect { klass.abort_if true_test }.to raise_error SystemExit
     end
 
-    it "logs a fatal error" do
-      expect(klass.logger).to receive(:fatal).with default_msg
+    include_examples "for logging a fatal error", :abort_if, true
+  end
 
-      begin
-        klass.abort_if true_test
-      rescue SystemExit; end
+  describe "#abort_if_file_exists" do
+    @fname = "#{File.dirname(__FILE__)}/test_files/hello.txt"
+    it "doesn't raise SystemExit if file does NOT exist" do
+      expect(klass.abort_if_file_exists "fake_file.txt").to be nil
     end
+
+    it "raises SystemExit if file already exist" do
+      expect { klass.abort_if_file_exists file }.
+        to raise_error SystemExit
+    end
+
+    include_examples "for logging a fatal error",
+                     :abort_if_file_exists,
+                     @fname
   end
 
   describe "#abort_unless" do
@@ -39,6 +63,23 @@ describe AbortIf do
       expect { klass.abort_unless false_test }.
         to raise_error SystemExit
     end
+
+    include_examples "for logging a fatal error", :abort_unless, false
+  end
+
+  describe "#abort_unless_file_exists" do
+    it "doesn't raise SystemExit if file exists" do
+      expect(klass.abort_unless_file_exists file).to be nil
+    end
+
+    it "raises SystemExit if file doesn't exist" do
+      expect { klass.abort_unless_file_exists "apples" }.
+        to raise_error SystemExit
+    end
+
+    include_examples "for logging a fatal error",
+                     :abort_unless_file_exists,
+                     "fake_file.txt"
   end
 
   describe "#logger" do
