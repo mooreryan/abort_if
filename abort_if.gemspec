@@ -11,7 +11,8 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Easy error logging and assertions.}
   spec.description   = %q{Easy error logging and assertions..}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/mooreryan/abort_if"
+  spec.license       = "GPLv3: http://www.gnu.org/licenses/gpl.txt"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
   # delete this section to allow pushing this gem to any host.
@@ -26,8 +27,11 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  spec.required_ruby_version = ">= 1.9.3"
+
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "guard-rspec", "~> 4.6", ">= 4.6.4"
+  spec.add_development_dependency "yard", "~> 0.8.7.6"
 end
