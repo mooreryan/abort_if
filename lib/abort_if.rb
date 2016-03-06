@@ -1,4 +1,7 @@
 require "abort_if/version"
+require "abort_if/error"
+require "abort_if/argument_error"
+require "assert/assert"
 require "logger"
 
 module AbortIf
@@ -25,20 +28,5 @@ module AbortIf
 
   def logger
     @@logger ||= Logger.new STDERR
-  end
-
-  module Assert
-    class AssertionFailureError < Exception
-    end
-
-    def assert test, msg="Assertion failed", *args
-      unless test
-        raise AssertionFailureError, msg % args
-      end
-    end
-
-    def refute test, msg="Assertion failed", *args
-      assert !test, msg, *args
-    end
   end
 end

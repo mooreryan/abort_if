@@ -8,3 +8,5 @@
 /spec/reports/
 /tmp/
 *.lock
+.ruby-version
+.ruby-gemset
