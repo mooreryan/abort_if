@@ -1,6 +1,6 @@
 # AbortIf
 
-[![Gem Version](https://badge.fury.io/rb/AbortIf.svg)](http://badge.fury.io/rb/AbortIf) [![Build Status](https://travis-ci.org/mooreryan/abort_if.svg?branch=master)](https://travis-ci.org/mooreryan/abort_if) [![Coverage Status](https://coveralls.io/repos/github/mooreryan/abort_if/badge.svg?branch=master)](https://coveralls.io/github/mooreryan/abort_if?branch=master)
+[![Gem Version](https://badge.fury.io/rb/abort_if.svg)](https://badge.fury.io/rb/abort_if) [![Build Status](https://travis-ci.org/mooreryan/abort_if.svg?branch=master)](https://travis-ci.org/mooreryan/abort_if) [![Coverage Status](https://coveralls.io/repos/github/mooreryan/abort_if/badge.svg?branch=master)](https://coveralls.io/github/mooreryan/abort_if?branch=master)
 
 Simple error logging and assertions for Ruby.
 
@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-See [documentation](http://www.rubydoc.info/gems/AbortIf) for complete
+See [documentation](http://www.rubydoc.info/gems/abort_if) for complete
 usage.
 
 ### Example ###
