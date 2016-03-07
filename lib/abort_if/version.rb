@@ -17,5 +17,5 @@
 # along with AbortIf.  If not, see <http://www.gnu.org/licenses/>.
 
 module AbortIf
-  VERSION = "0.0.1"
+  VERSION = "0.1.0"
 end
