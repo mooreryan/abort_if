@@ -16,6 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with AbortIf.  If not, see <http://www.gnu.org/licenses/>.
 
+require "coveralls"
+Coveralls.wear!
+
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'abort_if'
 
