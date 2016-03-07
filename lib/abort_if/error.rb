@@ -17,6 +17,10 @@
 # along with AbortIf.  If not, see <http://www.gnu.org/licenses/>.
 
 module AbortIf
+  # Basic Error from which all other AbortIf errors inherit from.
+  #
+  # To rescue any error raised specifically by the AbortIf module, you
+  # could do `resuce AbortIf::Error => e`
   class Error < StandardError
   end
 end

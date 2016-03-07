@@ -1,8 +1,6 @@
 # AbortIf
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/abort_if`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Simple error logging and assertions for Ruby.
 
 ## Installation
 
@@ -22,7 +20,41 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+See [documentation](http://www.rubydoc.info/gems/AbortIf) for complete
+usage.
+
+### Example ###
+
+Here is a tiny example program.
+
+    require "abort_if"
+
+    include AbortIf
+    include AbortIf::Assert
+
+    a = 5
+    b = 5
+    numbers = [1, 2, 3]
+    fname = "apple_pie.txt"
+    hash = nil
+
+    # this will pass
+    assert a == b, "%d should equal %d", a, b
+
+    # this will pass
+    abort_unless numbers.include?(1), "numbers should include 1"
+
+    # this will pass
+    abort_if_file_exists fname, "#{fname} should not exist"
+
+    File.open(fname, "w") do |f|
+      f.puts "Important info to follow...."
+    end
+
+    # oops, this will abort the progam and will log a nice message
+    # like this
+    # F, [2016-03-06T18:14:03.255900 #5357] FATAL -- : the hash was nil
+    abort_unless hash, "the hash was nil"
 
 ## Development
 
@@ -32,5 +64,9 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/abort_if. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
+Bug reports and pull requests are welcome on GitHub at
+https://github.com/mooreryan/abort_if. This project is intended to be
+a safe, welcoming space for collaboration, and contributors are
+expected to adhere to the
+[Contributor Covenant](http://contributor-covenant.org) code of
+conduct.

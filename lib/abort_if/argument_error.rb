@@ -17,6 +17,7 @@
 # along with AbortIf.  If not, see <http://www.gnu.org/licenses/>.
 
 module AbortIf
+  # Raised if a method is passed improper arguments.
   class ArgumentError < Error
   end
 end
