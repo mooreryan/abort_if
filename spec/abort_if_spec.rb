@@ -31,6 +31,13 @@ describe AbortIf do
     expect(AbortIf::VERSION).not_to be nil
   end
 
+  describe "AbortIf::Exit" do
+    it "is a SystemExit" do
+      err = AbortIf::Exit.new
+      expect(err).to be_a SystemExit
+    end
+  end
+
   describe "Error" do
     it "is a StandardError" do
       err = AbortIf::Error.new
@@ -51,7 +58,7 @@ describe AbortIf do
 
       begin
         klass.send(method, test)
-      rescue SystemExit
+      rescue AbortIf::Exit
         # pass
       end
     end
@@ -62,9 +69,9 @@ describe AbortIf do
       expect(klass.abort_if false_test).to be nil
     end
 
-    it "raises SystemExit if truthy" do
+    it "raises AbortIf::Exit if truthy" do
       test = hash.has_key? :a
-      expect { klass.abort_if true_test }.to raise_error SystemExit
+      expect { klass.abort_if true_test }.to raise_error AbortIf::Exit
     end
 
     include_examples "for logging a fatal error", :abort_if, true
@@ -72,13 +79,13 @@ describe AbortIf do
 
   describe "#abort_if_file_exists" do
     @fname = "#{File.dirname(__FILE__)}/test_files/hello.txt"
-    it "doesn't raise SystemExit if file does NOT exist" do
+    it "doesn't raise AbortIf::Exit if file does NOT exist" do
       expect(klass.abort_if_file_exists "fake_file.txt").to be nil
     end
 
-    it "raises SystemExit if file already exist" do
+    it "raises AbortIf::Exit if file already exist" do
       expect { klass.abort_if_file_exists file }.
-        to raise_error SystemExit
+        to raise_error AbortIf::Exit
     end
 
     include_examples "for logging a fatal error",
@@ -87,26 +94,26 @@ describe AbortIf do
   end
 
   describe "#abort_unless" do
-    it "doesn't raise SystemExit if test is true" do
+    it "doesn't raise AbortIf::Exit if test is true" do
       expect(klass.abort_unless true_test).to be nil
     end
 
-    it "raises SystemExit if test is false" do
+    it "raises AbortIf::Exit if test is false" do
       expect { klass.abort_unless false_test }.
-        to raise_error SystemExit
+        to raise_error AbortIf::Exit
     end
 
     include_examples "for logging a fatal error", :abort_unless, false
   end
 
   describe "#abort_unless_file_exists" do
-    it "doesn't raise SystemExit if file exists" do
+    it "doesn't raise AbortIf::Exit if file exists" do
       expect(klass.abort_unless_file_exists file).to be nil
     end
 
-    it "raises SystemExit if file doesn't exist" do
+    it "raises AbortIf::Exit if file doesn't exist" do
       expect { klass.abort_unless_file_exists "apples" }.
-        to raise_error SystemExit
+        to raise_error AbortIf::Exit
     end
 
     include_examples "for logging a fatal error",

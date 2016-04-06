@@ -19,6 +19,7 @@
 require "abort_if/version"
 require "abort_if/error"
 require "abort_if/argument_error"
+require "abort_if/exit"
 require "assert/assert"
 require "logger"
 
@@ -44,7 +45,7 @@ module AbortIf
   # @param msg [String] the message written by the
   #   error logger
   #
-  # @raise [SystemExit] if test is truthy
+  # @raise [AbortIf::Exit] if test is truthy
   #
   # @return [nil] if test is false or nil
   #
@@ -53,7 +54,7 @@ module AbortIf
   def abort_if test, msg="Fatal error"
     if test
       logger.fatal msg
-      abort
+      raise Exit
     end
   end
 
@@ -62,7 +63,7 @@ module AbortIf
   #
   # @param fname [String] name of a file
   #
-  # @raise [SystemExit] if file exists
+  # @raise [AbortIf::Exit] if file exists
   #
   # @return [nil] if file does not exist
   def abort_if_file_exists fname
@@ -86,7 +87,7 @@ module AbortIf
   #
   # @param (see #abort_if)
   #
-  # @raise [SystemExit] if test is false or nil
+  # @raise [AbortIf::Exit] if test is false or nil
   #
   # @return [nil] if test is truthy
   def abort_unless test, msg="Fatal error"
@@ -98,7 +99,7 @@ module AbortIf
   #
   # @param (see #abort_if_file_exists)
   #
-  # @raise [SystemExit] if file does not exist
+  # @raise [AbortIf::Exit] if file does not exist
   #
   # @return [nil] if file exists
   def abort_unless_file_exists fname

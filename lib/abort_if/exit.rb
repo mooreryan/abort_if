@@ -17,5 +17,8 @@
 # along with AbortIf.  If not, see <http://www.gnu.org/licenses/>.
 
 module AbortIf
-  VERSION = "0.1.1"
+  # Raised instead of standard SystemExit so you can catch SystemExit
+  # raised by AbortIf module
+  class Exit < Object::SystemExit
+  end
 end
