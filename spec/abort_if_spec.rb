@@ -69,9 +69,11 @@ describe AbortIf do
       expect(klass.abort_if false_test).to be nil
     end
 
-    it "raises AbortIf::Exit if truthy" do
+    it "raises AbortIf::Exit with msg if truthy" do
       test = hash.has_key? :a
-      expect { klass.abort_if true_test }.to raise_error AbortIf::Exit
+      msg = "Teehee"
+      expect { klass.abort_if true_test, msg }.
+        to raise_error AbortIf::Exit, msg
     end
 
     include_examples "for logging a fatal error", :abort_if, true

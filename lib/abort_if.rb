@@ -51,10 +51,13 @@ module AbortIf
   #
   # @note The abort_if style methods don't interpolate arguments to
   #   msg as the Assert module methods do
+  #
+  # @note When rescuing AbortIf::Exit, the msg will be passed if you
+  #   want to display it in the rescue block
   def abort_if test, msg="Fatal error"
     if test
       logger.fatal msg
-      raise Exit
+      raise Exit, msg
     end
   end
 
