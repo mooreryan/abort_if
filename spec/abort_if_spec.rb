@@ -62,6 +62,14 @@ describe AbortIf do
         # pass
       end
     end
+
+    it "sets the exit code to 1" do
+      begin
+        klass.send(method, test)
+      rescue AbortIf::Exit => e
+        expect(e.status).to eq 1
+      end
+    end
   end
 
   describe "#abort_if" do

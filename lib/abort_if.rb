@@ -57,7 +57,7 @@ module AbortIf
   def abort_if test, msg="Fatal error"
     if test
       logger.fatal msg
-      raise Exit, msg
+      raise Exit.new(1), msg
     end
   end
 
